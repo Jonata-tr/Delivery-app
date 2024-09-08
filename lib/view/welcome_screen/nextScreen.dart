@@ -1,15 +1,13 @@
-import "package:delivery_app/common_widget/round_button.dart";
-import "package:delivery_app/view/welcome_screen/nextScreen.dart";
 import "package:flutter/material.dart";
 
-class WelcomePage extends StatefulWidget {
-  const WelcomePage({super.key});
+class NextScreen extends StatefulWidget {
+  const NextScreen({super.key});
 
   @override
-  State<WelcomePage> createState() => _WelcomePageState();
+  State<NextScreen> createState() => _NextScreenState();
 }
 
-class _WelcomePageState extends State<WelcomePage> {
+class _NextScreenState extends State<NextScreen> {
   void nextPage() {
     Navigator.push(
         //Chama a proxima pagina
@@ -27,19 +25,17 @@ class _WelcomePageState extends State<WelcomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             //Cria um widget para estacar os itens da tela do logo
-            SizedBox(
-              height: media.width * .1,
-            ),
+            SizedBox(height: media.width * 0.1),
             Image.asset(
-              "assets/img/Illustration1.png",
+              "assets/img/Illustration2.png",
               fit: BoxFit.fill,
             ),
+            SizedBox(height: media.width * 0.1),
 
             Container(
-              padding:
-                  const EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
+              padding: const EdgeInsets.only(left: 0.0, top: 0.0, right: 10.0),
               child: const Text(
-                "Entregando felicidade para a sua vida",
+                "A maior varidade de produtos voce encontra aqui",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -50,14 +46,12 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
               ),
             ),
-            SizedBox(
-              height: media.width * 0.06,
-            ),
+            SizedBox(height: media.width * 0.06),
 
             Container(
               padding: const EdgeInsets.only(left: 52.0, right: 52.0),
               child: const Text(
-                "Comidas e plantas para todos os tipos de usuários.",
+                "abla bue abla bue abla bue alablalba alcalcal qininwc.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -67,11 +61,26 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
               ),
             ),
-            SizedBox(
-              height: media.width * 0.125,
-            ),
+            SizedBox(height: media.width * 0.125),
 
-            RoundButton(title: "NEXT", onPressed: () {}),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 57, 226, 125),
+              ),
+              onPressed: () {
+                print('Hello');
+              },
+              child: const Text(
+                'PROXIMO',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontFamily: 'BentoSans',
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2.5,
+                ),
+              ),
+            )
           ]),
     );
   }

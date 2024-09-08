@@ -46,7 +46,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
-
+  get:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -75,12 +75,12 @@ flutter:
   fonts:
     - family: BentoSans
       fonts:
-        - asset: assets\fonts\BentonSans Book.otf
-        - asset: assets\fonts\BentonSans Cond Medium.otf
+        - asset: assets/fonts/BentonSansBook.otf
+        - asset: assets/fonts/BentonSansCondMedium.otf
           weight: 500
-        - asset: assets\fonts\BentonSans Bold.otf
+        - asset: assets/fonts/BentonSansBold.otf
           weight: 700
-        - asset: assets\fonts\BentonSans Black.otf
+        - asset: assets/fonts/BentonSansBlack.otf
           weight: 900
   #
   # For details regarding fonts from package dependencies,

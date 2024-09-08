@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Tcolor {
-  static Color get primaryColor => const Color(0x0015be77);
-  static Color get primaryText => const Color(0x0000ffff);
+  static Color get primaryColor => const Color.fromARGB(255, 57, 226, 125);
+  static Color get buttonText => const Color.fromARGB(0, 255, 255, 255);
   
 }
