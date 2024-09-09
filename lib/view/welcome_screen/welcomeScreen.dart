@@ -71,7 +71,14 @@ class _WelcomePageState extends State<WelcomePage> {
               height: media.width * 0.125,
             ),
 
-            RoundButton(title: "NEXT", onPressed: () {}),
+            RoundButton(
+                title: "NEXT",
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (media) => const NextScreen())
+                  );
+                }),
           ]),
     );
   }

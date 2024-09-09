@@ -1,3 +1,4 @@
+import "package:delivery_app/common_widget/round_button.dart";
 import "package:flutter/material.dart";
 
 class NextScreen extends StatefulWidget {
@@ -63,24 +64,14 @@ class _NextScreenState extends State<NextScreen> {
             ),
             SizedBox(height: media.width * 0.125),
 
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 57, 226, 125),
-              ),
-              onPressed: () {
-                print('Hello');
-              },
-              child: const Text(
-                'PROXIMO',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontFamily: 'BentoSans',
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 2.5,
-                ),
-              ),
-            )
+            RoundButton(
+                title: "NEXT",
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (media) => const NextScreen())
+                  );
+                })
           ]),
     );
   }
