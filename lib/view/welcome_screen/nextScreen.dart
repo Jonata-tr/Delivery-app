@@ -36,12 +36,12 @@ class _NextScreenState extends State<NextScreen> {
             Container(
               padding: const EdgeInsets.only(left: 0.0, top: 0.0, right: 10.0),
               child: const Text(
-                "A maior varidade de produtos voce encontra aqui",
+                "A maior varidade de\n produtos voce encontra \naqui",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'BentoSans',
-                  fontSize: 32,
+                  fontSize: 26,
                   height: 1.2,
                   fontWeight: FontWeight.w700,
                 ),
@@ -49,28 +49,26 @@ class _NextScreenState extends State<NextScreen> {
             ),
             SizedBox(height: media.width * 0.06),
 
-            Container(
-              padding: const EdgeInsets.only(left: 52.0, right: 52.0),
-              child: const Text(
-                "abla bue abla bue abla bue alablalba alcalcal qininwc.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'BentoSans',
-                  fontSize: 18,
-                  fontWeight: FontWeight.normal,
-                ),
+            const Text(
+              "Uma grande variedades de comidas e lojas\n para poder satisfazer todos \nos usuarios.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'BentoSans',
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
               ),
             ),
             SizedBox(height: media.width * 0.125),
 
             RoundButton(
                 title: "NEXT",
+                type: RoundButtonType.bgPrimary,
                 onPressed: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (media) => const NextScreen())
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (media) => const NextScreen()));
                 })
           ]),
     );
