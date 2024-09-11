@@ -20,13 +20,16 @@ class _StartupViewState extends State<StartupView> {
     /*
         Ao marcar uma função com a palavra-chave async, você está informando ao Dart que essa função pode conter operações assíncronas. Isso permite que você utilize a palavra-chave await dentro da função para esperar pela conclusão de operações assíncronas sem bloquear a execução do restante do código.
       */
-    await Future.delayed(const Duration(seconds: 2)); //Tempo de espera para carregar a proxima pragina.
+    await Future.delayed(const Duration(
+        seconds: 2)); //Tempo de espera para carregar a proxima pragina.
     welcomePage();
   }
 
   void welcomePage() {
-    Navigator.push( //Chama a proxima pagina
-        context, MaterialPageRoute(builder: (context) => const WelcomePage()));
+    Navigator.push(
+        //Chama a proxima pagina
+        context,
+        MaterialPageRoute(builder: (context) => const WelcomePage()));
   }
 
   @override
@@ -41,8 +44,20 @@ class _StartupViewState extends State<StartupView> {
           alignment: Alignment.center,
           //Cria um widget para estacar os itens da tela do logo
           children: [
-            Image.asset(
-              "assets/img/Pattern.png",
+            Positioned(
+              top: 0,
+              child: Image.asset(
+                width: media.width,
+                "assets/img/Pattern.png",
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+              top: 60,
+              child: Image.asset(
+                width: media.width,
+                "assets/img/Gradient.png",
+              ),
             ),
             Container(
                 width: 800,
@@ -57,13 +72,15 @@ class _StartupViewState extends State<StartupView> {
                     Color.fromARGB(255, 0, 0, 0),
                   ],
                 ))),
-            Image.asset(
-              // Adiciona a logo da na tela de inicialização.
-              "assets/img/Logo.png",
-              width: media.width * .68,
-              height: media.height * .68,
-              fit: BoxFit.contain,
-            ),
+            Positioned(
+                top: 200,
+                child: Image.asset(
+                  // Adiciona a logo da na tela de inicialização.
+                  "assets/img/Logo.png",
+                  width: media.width * 0.55,
+                  height: media.height * 0.55,
+                  fit: BoxFit.contain,
+                )),
           ],
         ),
       ],

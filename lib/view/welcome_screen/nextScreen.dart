@@ -1,5 +1,6 @@
 import "package:delivery_app/common_widget/round_button.dart";
 import "package:flutter/material.dart";
+import "../login/login_screen.dart";
 
 class NextScreen extends StatefulWidget {
   const NextScreen({super.key});
@@ -61,14 +62,12 @@ class _NextScreenState extends State<NextScreen> {
             ),
             SizedBox(height: media.width * 0.125),
 
-            RoundButton(
+            RoundButton( //Componente da pasta Common_Widgt
                 title: "NEXT",
                 type: RoundButtonType.bgPrimary,
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (media) => const NextScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (media) => const LoginScreen()));
                 })
           ]),
     );
