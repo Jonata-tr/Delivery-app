@@ -34,7 +34,7 @@ class RoundTextField extends StatelessWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 fontFamily: "BentoSans")),
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
       ),
     );
   }

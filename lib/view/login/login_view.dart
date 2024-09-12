@@ -1,4 +1,5 @@
 import 'package:delivery_app/common/color_extension.dart';
+import 'package:delivery_app/view/login/res_password_view.dart';
 import 'package:delivery_app/view/login/singup_view.dart';
 import 'package:flutter/material.dart';
 
@@ -84,7 +85,12 @@ class _LoginViewState extends State<LoginView> {
               RoundButton(title: "Login", onPressed: () => {}),
               const SizedBox(height: 10),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ResetPasswordView()));
+                },
                 child: Text(
                   "Esqueceu a sua senha?",
                   style: TextStyle(
