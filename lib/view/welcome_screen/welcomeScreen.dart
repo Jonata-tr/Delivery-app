@@ -1,4 +1,4 @@
-import "package:delivery_app/common_widget/round_button.dart";
+import "package:delivery_app/components/round_button.dart";
 import "package:delivery_app/view/welcome_screen/nextScreen.dart";
 import "package:flutter/material.dart";
 

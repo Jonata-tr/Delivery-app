@@ -1,10 +1,12 @@
 import 'package:delivery_app/common/color_extension.dart';
+import 'package:delivery_app/components/button_icon.dart';
+import 'package:delivery_app/components/logo_text.dart';
 import 'package:delivery_app/view/login/res_password_view.dart';
 import 'package:delivery_app/view/login/singup_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../common_widget/round_button.dart';
-import '../../common_widget/round_text_field.dart';
+import '../../components/round_button.dart';
+import '../../components/round_text_field.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -25,36 +27,7 @@ class _LoginViewState extends State<LoginView> {
         body: SingleChildScrollView(
             child: Column(
       children: [
-        Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.center,
-          children: [
-            Positioned(
-              bottom: 16,
-              left: 160,
-              child: Transform.rotate(
-                angle: 190 / 360,
-                child: Image.asset(
-                  "assets/img/Pattern.png",
-                  width: 360,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            const SizedBox(height: 160, width: double.infinity),
-            Positioned(
-              bottom: 0,
-              child: Text(
-                "Login",
-                style: TextStyle(
-                    color: Tcolor.primaryColor,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'BentoSans'),
-              ),
-            )
-          ],
-        ),
+        const LogoText(texto: "Login"),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
           child: Column(
@@ -75,14 +48,17 @@ class _LoginViewState extends State<LoginView> {
                 controller: txtEmail,
                 keyboardType: TextInputType.emailAddress,
               ),
+              
               const SizedBox(height: 28),
               RoundTextField(
                 hintText: "Sua senha",
                 controller: txtSenha,
                 obscureText: true,
               ),
+
               const SizedBox(height: 36),
               RoundButton(title: "Login", onPressed: () => {}),
+              
               const SizedBox(height: 10),
               TextButton(
                 onPressed: () {
@@ -112,69 +88,20 @@ class _LoginViewState extends State<LoginView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  InkWell(
-                    child: Container(
-                      width: 150,
-                      height: 58,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 34, 34, 34),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/img/google.png",
-                            width: 24,
-                            height: 24,
-                            fit: BoxFit.contain,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            "Google",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  ButtonIcon( //Componente criado para suporta um botão com os intens de uma imagem e um texto dentro dele.
+                      texto: "Facebook",
+                      icone: "assets/img/facebook.png",
+                      color: const Color.fromARGB(255, 34, 34, 34),
+                      onPressed: () {}),
                   SizedBox(
                     width: media.width * 0.02,
                   ),
-                  InkWell(
-                      child: TextButton(
+                  ButtonIcon(
+                    icone: "assets/img/google.png",
+                    texto: "Google",
+                    color: const Color.fromARGB(255, 34, 34, 34),
                     onPressed: () {},
-                    child: Container(
-                      width: 150,
-                      height: 58,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 34, 34, 34),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/img/facebook.png",
-                            width: 28,
-                            height: 28,
-                            fit: BoxFit.contain,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            "Facebook",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )),
+                  ),
                 ],
               ),
               const SizedBox(
@@ -187,7 +114,7 @@ class _LoginViewState extends State<LoginView> {
                     "Ainda não possui cadastro?",
                     style: TextStyle(
                         color: Tcolor.secondaryText,
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline),
                   ),
@@ -199,10 +126,10 @@ class _LoginViewState extends State<LoginView> {
                               builder: (context) => const SingupScreen()))
                     },
                     child: Text(
-                      "Crie uma conta",
+                      "Criar conta",
                       style: TextStyle(
                           color: Tcolor.primaryColor,
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.w700,
                           decoration: TextDecoration.underline),
                     ),

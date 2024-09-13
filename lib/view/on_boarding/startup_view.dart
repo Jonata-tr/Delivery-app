@@ -1,6 +1,5 @@
+import 'package:delivery_app/view/login/login_view.dart';
 import 'package:flutter/material.dart';
-
-import '../welcome_screen/welcomeScreen.dart';
 
 class StartupView extends StatefulWidget {
   const StartupView({super.key});
@@ -29,7 +28,7 @@ class _StartupViewState extends State<StartupView> {
     Navigator.push(
         //Chama a proxima pagina
         context,
-        MaterialPageRoute(builder: (context) => const WelcomePage()));
+        MaterialPageRoute(builder: (context) => const LoginView()));
   }
 
   @override

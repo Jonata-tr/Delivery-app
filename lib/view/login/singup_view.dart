@@ -1,9 +1,10 @@
 import 'package:delivery_app/common/color_extension.dart';
+import 'package:delivery_app/components/logo_text.dart';
 import 'package:delivery_app/view/login/login_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../common_widget/round_button.dart';
-import '../../common_widget/round_text_field.dart';
+import '../../components/round_button.dart';
+import '../../components/round_text_field.dart';
 
 class SingupScreen extends StatefulWidget {
   const SingupScreen({super.key});
@@ -30,36 +31,7 @@ class _SingupScreenState extends State<SingupScreen> {
         body: SingleChildScrollView(
             child: Column(
       children: [
-        Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.center,
-          children: [
-            Positioned(
-              bottom: 40,
-              left: 140,
-              child: Transform.rotate(
-                angle: 182 / 360,
-                child: Image.asset(
-                  "assets/img/Pattern.png",
-                  width: 360,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            const SizedBox(height: 180, width: double.infinity),
-            Positioned(
-              bottom: 0,
-              child: Text(
-                "Se inscreva",
-                style: TextStyle(
-                    color: Tcolor.primaryColor,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'BentoSans'),
-              ),
-            )
-          ],
-        ),
+        const LogoText(texto: "Se registrar"),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
           child: Column(
@@ -129,7 +101,7 @@ class _SingupScreenState extends State<SingupScreen> {
                     "Ja possui uma conta?",
                     style: TextStyle(
                         color: Tcolor.secondaryText,
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline),
                   ),
@@ -144,7 +116,7 @@ class _SingupScreenState extends State<SingupScreen> {
                       "Login",
                       style: TextStyle(
                           color: Tcolor.primaryColor,
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.w700,
                           decoration: TextDecoration.underline),
                     ),

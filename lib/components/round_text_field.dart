@@ -18,7 +18,7 @@ class RoundTextField extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Tcolor.textField,
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: TextField(
         autocorrect: false,
@@ -27,7 +27,8 @@ class RoundTextField extends StatelessWidget {
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(horizontal: 20),
             enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Tcolor.primaryColor)),
             hintText: hintText,
             hintStyle: TextStyle(
                 color: Tcolor.placeHolder,

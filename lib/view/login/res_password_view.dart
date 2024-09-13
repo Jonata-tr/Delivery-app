@@ -2,8 +2,8 @@ import 'package:delivery_app/common/color_extension.dart';
 import 'package:delivery_app/view/login/login_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../common_widget/round_button.dart';
-import '../../common_widget/round_text_field.dart';
+import '../../components/round_button.dart';
+import '../../components/round_text_field.dart';
 
 class ResetPasswordView extends StatefulWidget {
   const ResetPasswordView({super.key});

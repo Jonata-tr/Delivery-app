@@ -1,6 +1,7 @@
-import "package:delivery_app/common_widget/round_button.dart";
+import "package:delivery_app/components/round_button.dart";
+import "package:delivery_app/view/login/login_view.dart";
 import "package:flutter/material.dart";
-import "../login/login_screen.dart";
+
 
 class NextScreen extends StatefulWidget {
   const NextScreen({super.key});
@@ -67,7 +68,7 @@ class _NextScreenState extends State<NextScreen> {
                 type: RoundButtonType.bgPrimary,
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (media) => const LoginScreen()));
+                      MaterialPageRoute(builder: (media) => const LoginView()));
                 })
           ]),
     );
