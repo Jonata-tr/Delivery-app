@@ -68,7 +68,7 @@ class _NextScreenState extends State<NextScreen> {
                 type: RoundButtonType.bgPrimary,
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (media) => const LoginView()));
+                      MaterialPageRoute(builder: (media) => LoginView()));
                 })
           ]),
     );

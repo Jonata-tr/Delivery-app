@@ -3,7 +3,7 @@ import 'package:delivery_app/view/login/login_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/round_button.dart';
-import '../../components/round_text_field.dart';
+import '../../components/form_text_field.dart';
 
 class ResetPasswordView extends StatefulWidget {
   const ResetPasswordView({super.key});
@@ -74,6 +74,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
 
               const SizedBox(height: 52),
               RoundTextField(
+                validateType: validateEmail,
                 hintText: "Seu email",
                 controller: txtEmail,
                 keyboardType: TextInputType.emailAddress,

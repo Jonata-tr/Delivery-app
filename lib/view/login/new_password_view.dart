@@ -3,7 +3,7 @@ import 'package:delivery_app/view/login/login_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/round_button.dart';
-import '../../components/round_text_field.dart';
+import '../../components/form_text_field.dart';
 
 class NewPasswordView extends StatefulWidget {
   const NewPasswordView({super.key});
@@ -75,12 +75,14 @@ class _NewPasswordViewState extends State<NewPasswordView> {
 
               const SizedBox(height: 52),
               RoundTextField(
+                validateType: validatePassword,
                 hintText: "Nova senha",
                 controller: txtSenha,
                 obscureText: true,
               ),
               const SizedBox(height: 52),
               RoundTextField(
+                validateType: validatePassword,
                 hintText: "Confirme a senha",
                 controller: txtConfirmarSenha,
                 obscureText: true,

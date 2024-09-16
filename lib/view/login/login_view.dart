@@ -3,10 +3,11 @@ import 'package:delivery_app/components/button_icon.dart';
 import 'package:delivery_app/components/logo_text.dart';
 import 'package:delivery_app/view/login/res_password_view.dart';
 import 'package:delivery_app/view/login/singup_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/round_button.dart';
-import '../../components/round_text_field.dart';
+import '../../components/form_text_field.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -16,8 +17,41 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  TextEditingController txtEmail = TextEditingController();
-  TextEditingController txtSenha = TextEditingController();
+  //controles do campo de texto do login
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  //Server para poder formatar o formulario de forma global no codigo, permite usar o validate();
+
+  void singUserIn() async {
+    try {
+      if (_key.currentState!.validate()) {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          //Adquiri o email e a senha e compara no banco de dados para fazer o login do usuario caso esteja tudo certo;
+          email: emailController.text,
+          password: passwordController.text,
+        );
+        setState(() {});
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        debugPrint(e.code);
+      } else if (e.code == 'wrong-password') {
+        showError();
+      }
+    }
+  }
+
+  void showError() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            title: Text("email eerrado"),
+            content: Text("ta tudo dando errado nessa pora"),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,22 +77,29 @@ class _LoginViewState extends State<LoginView> {
               const SizedBox(
                 height: 24,
               ),
-              RoundTextField(
-                hintText: "Seu email",
-                controller: txtEmail,
-                keyboardType: TextInputType.emailAddress,
+              Form(
+                key: _key,
+                child: Column(
+                  children: [
+                    RoundTextField(
+                      validateType: validateEmail,
+                      hintText: "Seu email",
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 28),
+                    RoundTextField(
+                      validateType: validatePassword,
+                      hintText: "Sua senha",
+                      controller: passwordController,
+                      obscureText: true,
+                    ),
+                    const SizedBox(height: 36),
+                    RoundButton(
+                        title: "Login", onPressed: () => {singUserIn()}),
+                  ],
+                ),
               ),
-              
-              const SizedBox(height: 28),
-              RoundTextField(
-                hintText: "Sua senha",
-                controller: txtSenha,
-                obscureText: true,
-              ),
-
-              const SizedBox(height: 36),
-              RoundButton(title: "Login", onPressed: () => {}),
-              
               const SizedBox(height: 10),
               TextButton(
                 onPressed: () {
@@ -88,7 +129,8 @@ class _LoginViewState extends State<LoginView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ButtonIcon( //Componente criado para suporta um botão com os intens de uma imagem e um texto dentro dele.
+                  ButtonIcon(
+                      //Componente criado para suporta um botão com os intens de uma imagem e um texto dentro dele.
                       texto: "Facebook",
                       icone: "assets/img/facebook.png",
                       color: const Color.fromARGB(255, 34, 34, 34),
@@ -142,4 +184,26 @@ class _LoginViewState extends State<LoginView> {
       ],
     )));
   }
+}
+
+String? validateEmail(String? formEmail) {
+  if (formEmail == null || formEmail.isEmpty) {
+    return 'O endereçoo de e-mail é necessario';
+  }
+
+  String pattern = r'\w+@\w+\.\w+';
+  //Procura por uma string que tenha a seguinte composição: letras + @ + letras + . + letras. Ex => (teste@asas.com)
+  RegExp regex = RegExp(pattern);
+  if (!regex.hasMatch(formEmail)) {
+    return 'Formato invalido de E-mail';
+  }
+  return null;
+}
+
+String? validatePassword(String? formPassword) {
+  if (formPassword == null || formPassword.isEmpty) {
+    return 'A senha não pode estar vazia';
+  }
+
+  return null;
 }

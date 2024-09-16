@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "268747985132",
+    "project_id": "odeio-o-firebase",
+    "storage_bucket": "odeio-o-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268747985132:android:2bd73fd0b07c9f933355c9",
+        "android_client_info": {
+          "package_name": "com.centec.delivery"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoUV5ymLl1w1MfbL6htfRJR-Y4OYnU7qo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

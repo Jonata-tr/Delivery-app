@@ -1,10 +1,11 @@
 import 'package:delivery_app/common/color_extension.dart';
 import 'package:delivery_app/components/logo_text.dart';
+import 'package:delivery_app/components/normal_text_field.dart';
 import 'package:delivery_app/view/login/login_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/round_button.dart';
-import '../../components/round_text_field.dart';
+import '../../components/form_text_field.dart';
 
 class SingupScreen extends StatefulWidget {
   const SingupScreen({super.key});
@@ -48,7 +49,7 @@ class _SingupScreenState extends State<SingupScreen> {
               const SizedBox(
                 height: 24,
               ),
-              RoundTextField(
+              NormalTextField(
                 hintText: "Nome",
                 controller: txtNome,
                 keyboardType: TextInputType.name,
@@ -56,7 +57,7 @@ class _SingupScreenState extends State<SingupScreen> {
               const SizedBox(
                 height: 24,
               ),
-              RoundTextField(
+              NormalTextField(
                 hintText: "Sobrenome",
                 controller: txtSobreNome,
                 keyboardType: TextInputType.name,
@@ -65,6 +66,7 @@ class _SingupScreenState extends State<SingupScreen> {
                 height: 24,
               ),
               RoundTextField(
+                validateType: validateEmail,
                 hintText: "Email",
                 controller: txtEmail,
                 keyboardType: TextInputType.emailAddress,
@@ -73,18 +75,21 @@ class _SingupScreenState extends State<SingupScreen> {
                 height: 24,
               ),
               RoundTextField(
+                validateType: validatePassword,
                 hintText: "Celular -> (xx) xxxx-xxxx",
                 controller: txtMobile,
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 28),
               RoundTextField(
+                validateType: validatePassword,
                 hintText: "Senha",
                 controller: txtSenha,
                 obscureText: true,
               ),
               const SizedBox(height: 28),
               RoundTextField(
+                validateType: validatePassword,
                 hintText: "Confirmar a Senha",
                 controller: txtConfirmarSenha,
                 obscureText: true,
@@ -110,7 +115,7 @@ class _SingupScreenState extends State<SingupScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const LoginView()))
+                              builder: (context) =>  LoginView()))
                     },
                     child: Text(
                       "Login",
