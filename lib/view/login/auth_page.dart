@@ -15,7 +15,7 @@ class AuthPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             //Caso o usuario esteja logado, leva para a tela de inicio do app
-            return const HomePage();
+            return HomePage();
           } else {
             //caso ele não esteja logado, leva para a tela de apresentação -> splash-screen
             return LoginView();

@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +18,15 @@ class HomePage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(
+            "Esta usando a conta: " + user!.email!,
+            style: const TextStyle(color: Colors.white, fontSize: 24),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
           const Text(
-            "Voce esta logado, olha essa imagem legal",
+            "Olha que macaco foda",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           Image.network(

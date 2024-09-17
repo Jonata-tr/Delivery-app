@@ -1,6 +1,7 @@
 import 'package:delivery_app/common/color_extension.dart';
 import 'package:delivery_app/components/logo_text.dart';
 import 'package:delivery_app/components/normal_text_field.dart';
+import 'package:delivery_app/view/home/testeLogin.dart';
 import 'package:delivery_app/view/login/login_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +31,20 @@ class _SingupScreenState extends State<SingupScreen> {
           password: passwordController.text,
         );
         setState(() {});
+        loginUser();
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
-        showErro("Ja existe uma conta com este email.");
+        showMessage("Ja existe uma conta com este email.");
       } else if (e.code == 'wrong-password') {}
     }
+  }
+
+  void loginUser() {
+    Navigator.push(
+        //Chama a proxima pagina
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   String? validatesPasswordMatch(String? formEmail) {
@@ -157,7 +166,7 @@ class _SingupScreenState extends State<SingupScreen> {
     )));
   }
 
-  void showErro(String string) {
+  void showMessage(String string) {
     showDialog(
         context: context,
         builder: (context) {
