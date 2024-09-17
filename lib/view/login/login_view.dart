@@ -87,7 +87,7 @@ class _LoginViewState extends State<LoginView> {
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 16),
                     RoundTextField(
                       validateType: validatePassword,
                       hintText: "Sua senha",
@@ -127,7 +127,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               const SizedBox(height: 20),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ButtonIcon(
                       //Componente criado para suporta um botão com os intens de uma imagem e um texto dentro dele.
@@ -135,9 +135,6 @@ class _LoginViewState extends State<LoginView> {
                       icone: "assets/img/facebook.png",
                       color: const Color.fromARGB(255, 34, 34, 34),
                       onPressed: () {}),
-                  SizedBox(
-                    width: media.width * 0.02,
-                  ),
                   ButtonIcon(
                     icone: "assets/img/google.png",
                     texto: "Google",

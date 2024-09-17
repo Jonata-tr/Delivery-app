@@ -2,6 +2,7 @@ import 'package:delivery_app/common/color_extension.dart';
 import 'package:delivery_app/components/logo_text.dart';
 import 'package:delivery_app/components/normal_text_field.dart';
 import 'package:delivery_app/view/login/login_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/round_button.dart';
@@ -15,24 +16,66 @@ class SingupScreen extends StatefulWidget {
 }
 
 class _SingupScreenState extends State<SingupScreen> {
-  TextEditingController txtNome = TextEditingController();
-  TextEditingController txtSobreNome = TextEditingController();
-  TextEditingController txtMobile = TextEditingController();
-  TextEditingController txtEndereco = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPassword = TextEditingController();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
-  TextEditingController txtEmail = TextEditingController();
-  TextEditingController txtSenha = TextEditingController();
-  TextEditingController txtConfirmarSenha = TextEditingController();
+  void singUserIn() async {
+    try {
+      if (_key.currentState!.validate()) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          //Coleta o email e a senha digitadas, e cria o usuario no banco de dados;
+          email: emailController.text,
+          password: passwordController.text,
+        );
+        setState(() {});
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        showErro("Ja existe uma conta com este email.");
+      } else if (e.code == 'wrong-password') {}
+    }
+  }
+
+  String? validatesPasswordMatch(String? formEmail) {
+    if (formEmail != passwordController.text) {
+      return 'As senhas precisam ser iguais';
+    }
+
+    return null;
+  }
+
+  String? validatePassword(String? formPassword) {
+    if (formPassword == null || formPassword.isEmpty) {
+      return 'A senha não pode estar vazia';
+    }
+
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$'; //Regex que vai procurar uma senha com(letra, maiuscula, numero e simbolo)
+    RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(formPassword)) {
+      return '''A senha deve conter pelo menos:
+  8 caracteres
+  1 letra maiuscula
+  1 numero
+  1 simbolo
+      ''';
+    }
+
+    if (formPassword != confirmPassword.text) {
+      return 'As senhas precisam ser iguais';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.of(context).size;
-
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(
       children: [
-        const LogoText(texto: "Se registrar"),
+        const LogoText(texto: "Vamos criar uma conta"),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
           child: Column(
@@ -46,58 +89,39 @@ class _SingupScreenState extends State<SingupScreen> {
                     fontWeight: FontWeight.w500),
               ),
               //INICIO DOS INPUTS
-              const SizedBox(
-                height: 24,
+
+              Form(
+                key: _key,
+                child: Column(children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  RoundTextField(
+                    validateType: validateEmail,
+                    hintText: "Email",
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                  ),
+                  const SizedBox(height: 22),
+                  RoundTextField(
+                    validateType: validatePassword,
+                    hintText: "Senha",
+                    controller: passwordController,
+                    obscureText: true,
+                  ),
+                  const SizedBox(height: 22),
+                  RoundTextField(
+                    validateType: validatesPasswordMatch,
+                    hintText: "Confirmar a Senha",
+                    controller: confirmPassword,
+                    obscureText: true,
+                  ),
+                  const SizedBox(height: 36),
+                ]),
               ),
-              NormalTextField(
-                hintText: "Nome",
-                controller: txtNome,
-                keyboardType: TextInputType.name,
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              NormalTextField(
-                hintText: "Sobrenome",
-                controller: txtSobreNome,
-                keyboardType: TextInputType.name,
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              RoundTextField(
-                validateType: validateEmail,
-                hintText: "Email",
-                controller: txtEmail,
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              RoundTextField(
-                validateType: validatePassword,
-                hintText: "Celular -> (xx) xxxx-xxxx",
-                controller: txtMobile,
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 28),
-              RoundTextField(
-                validateType: validatePassword,
-                hintText: "Senha",
-                controller: txtSenha,
-                obscureText: true,
-              ),
-              const SizedBox(height: 28),
-              RoundTextField(
-                validateType: validatePassword,
-                hintText: "Confirmar a Senha",
-                controller: txtConfirmarSenha,
-                obscureText: true,
-              ),
-              const SizedBox(height: 36),
               //FIM DOS CAMPOS DE INPUT
 
-              RoundButton(title: "Cadastrar", onPressed: () => {}),
+              RoundButton(title: "Cadastrar", onPressed: () => {singUserIn()}),
               const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -112,10 +136,8 @@ class _SingupScreenState extends State<SingupScreen> {
                   ),
                   TextButton(
                     onPressed: () => {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>  LoginView()))
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginView()))
                     },
                     child: Text(
                       "Login",
@@ -134,4 +156,32 @@ class _SingupScreenState extends State<SingupScreen> {
       ],
     )));
   }
+
+  void showErro(String string) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.red,
+            title: Center(
+              child: Text(string),
+            ),
+          );
+        });
+  }
+}
+
+//Cria uma função que pode retorna nulo ou não --> (? -> significa que ela pode retorna o tipo String ou null)
+String? validateEmail(String? formEmail) {
+  if (formEmail == null || formEmail.isEmpty) {
+    return 'O endereçoo de e-mail é necessario';
+  }
+
+  String pattern = r'\w+@\w+\.\w+';
+  //Procura por uma string que tenha a seguinte composição: letras + @ + letras + . + letras. Ex => (teste@asas.com)
+  RegExp regex = RegExp(pattern);
+  if (!regex.hasMatch(formEmail)) {
+    return 'Formato invalido de E-mail';
+  }
+  return null;
 }
