@@ -36,8 +36,7 @@ class RoundTextField extends StatelessWidget {
               border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12)),
               ),
-              helperText: ' ',
-              filled: true, //Permite adicionar background no campo d input
+              filled: true, //Permite adicionar background no campo de input
               fillColor: Tcolor.textField,
               contentPadding: const EdgeInsets.symmetric(horizontal: 20),
               enabledBorder: const OutlineInputBorder(

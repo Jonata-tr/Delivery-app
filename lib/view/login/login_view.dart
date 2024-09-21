@@ -26,23 +26,35 @@ class _LoginViewState extends State<LoginView> {
   void singUserIn() async {
     try {
       if (_key.currentState!.validate()) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: Tcolor.primaryColor,
+                  backgroundColor: Tcolor.primaryColor,
+                ),
+              );
+            });
+
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           //Adquiri o email e a senha e compara no banco de dados para fazer o login do usuario caso esteja tudo certo;
-          email: emailController.text,
-          password: passwordController.text,
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
         );
-        setState(() {});
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         debugPrint(e.code);
       } else if (e.code == 'wrong-password') {
-        showError();
+        showMessage();
       }
     }
+
+    Navigator.of(context).pop;
   }
 
-  void showError() {
+  void showMessage() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -55,8 +67,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.of(context).size;
-
+    Navigator.of(context).pop;
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(

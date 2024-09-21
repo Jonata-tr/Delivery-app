@@ -1,8 +1,7 @@
 import 'package:delivery_app/common/color_extension.dart';
 import 'package:delivery_app/components/logo_text.dart';
-import 'package:delivery_app/components/normal_text_field.dart';
-import 'package:delivery_app/view/home/testeLogin.dart';
 import 'package:delivery_app/view/login/login_view.dart';
+import 'package:delivery_app/view/login/verify_email.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -22,29 +21,44 @@ class _SingupScreenState extends State<SingupScreen> {
   final confirmPassword = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
-  void singUserIn() async {
+  //Faz o login do usuario
+  Future verifyEmail() async {
+    //Tenta fazer o login
     try {
+      //Confirma se os dados ja foram validados
       if (_key.currentState!.validate()) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: Tcolor.primaryColor,
+                  backgroundColor: Tcolor.primaryColor,
+                ),
+              );
+            });
+
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           //Coleta o email e a senha digitadas, e cria o usuario no banco de dados;
           email: emailController.text,
           password: passwordController.text,
         );
-        setState(() {});
-        loginUser();
+        loginView();
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         showMessage("Ja existe uma conta com este email.");
-      } else if (e.code == 'wrong-password') {}
+      }
     }
+
+    Navigator.of(context).pop;
   }
 
-  void loginUser() {
+  void loginView() {
     Navigator.push(
         //Chama a proxima pagina
         context,
-        MaterialPageRoute(builder: (context) => HomePage()));
+        MaterialPageRoute(builder: (context) => const VerifyEmail()));
   }
 
   String? validatesPasswordMatch(String? formEmail) {
@@ -130,7 +144,7 @@ class _SingupScreenState extends State<SingupScreen> {
               ),
               //FIM DOS CAMPOS DE INPUT
 
-              RoundButton(title: "Cadastrar", onPressed: () => {singUserIn()}),
+              RoundButton(title: "Cadastrar", onPressed: () => {verifyEmail()}),
               const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -145,8 +159,10 @@ class _SingupScreenState extends State<SingupScreen> {
                   ),
                   TextButton(
                     onPressed: () => {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => LoginView()))
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginView()))
                     },
                     child: Text(
                       "Login",
@@ -166,14 +182,23 @@ class _SingupScreenState extends State<SingupScreen> {
     )));
   }
 
+  //Cria uma caixa de dialogo que recebe uma 'mensagem' como parametro
   void showMessage(String string) {
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Colors.red,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            backgroundColor: const Color.fromARGB(255, 39, 39, 39),
             title: Center(
-              child: Text(string),
+              child: Text(
+                string,
+                style: TextStyle(
+                  color: Tcolor.buttonText,
+                  fontSize: 18,
+                ),
+              ),
             ),
           );
         });

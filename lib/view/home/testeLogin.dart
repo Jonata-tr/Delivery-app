@@ -1,3 +1,4 @@
+import 'package:delivery_app/view/login/login_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void userLogout() {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const LoginView()));
+      FirebaseAuth.instance.signOut();
+    }
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -19,7 +25,7 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Esta usando a conta: " + user!.email!,
+            "Esta usando a conta: ${user!.email!}",
             style: const TextStyle(color: Colors.white, fontSize: 24),
           ),
           const SizedBox(
@@ -37,6 +43,3 @@ class HomePage extends StatelessWidget {
   }
 }
 
-void userLogout() {
-  FirebaseAuth.instance.signOut();
-}
