@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:delivery_app/common/color_extension.dart';
+import 'package:delivery_app/components/button_icon.dart';
+import 'package:delivery_app/components/logo_text.dart';
 import 'package:delivery_app/view/home/testeLogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,11 @@ class VerifyEmail extends StatefulWidget {
 
 class _VerifyEmailState extends State<VerifyEmail> {
   bool isEmailVerified = false;
+  bool canResendEmail = false;
   Timer? timer;
+
+  static const maxSeconds = 30;
+  int seconds = 0;
 
   @override
   void initState() {
@@ -28,7 +34,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
       sendVerificationEmail();
 
       timer = Timer.periodic(
-        Duration(seconds: 3),
+        const Duration(seconds: 3),
         (_) => checkEmailVerified(),
       );
     }
@@ -47,18 +53,37 @@ class _VerifyEmailState extends State<VerifyEmail> {
         .reload(); //Atualiza a informação do email do usuario
 
     setState(() {
-      isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+      isEmailVerified = FirebaseAuth.instance.currentUser!
+          .emailVerified; //Coleta o estado atual da verificação do email do usuario.
     });
 
-    if (isEmailVerified) timer?.cancel(); //Se o email ja estiver verificado, cancela a verificação de 3 minutos.
+    if (isEmailVerified) {
+      timer?.cancel();
+      //Se o email ja estiver verificado, cancela a verificação do timer.
+    }
   }
 
   //Responsavel por enviar o email para o usuario
   Future sendVerificationEmail() async {
     try {
-      final user = FirebaseAuth.instance.currentUser!; //Pega o usuario atual
-      await user
-          .sendEmailVerification(); //Usa o metodo para enviar o email de verificação
+      final user = FirebaseAuth.instance.currentUser!;
+      //Pega o estado atual do usuario
+      await user.sendEmailVerification();
+      //Usa o metodo para enviar o email de verificação
+
+      setState(() => canResendEmail = false);
+      seconds = maxSeconds;
+      timer = Timer.periodic(Duration(seconds: 1), (_) {
+        if (seconds > 0) {
+          setState(() {
+            seconds--;
+          });
+        } else {
+          timer?.cancel();
+        }
+      });
+      await Future.delayed(Duration(seconds: 30));
+      setState(() => canResendEmail = true);
     } catch (e) {
       showMessage(e.toString());
     }
@@ -85,12 +110,64 @@ class _VerifyEmailState extends State<VerifyEmail> {
         });
   }
 
+  
+
   @override
-  Widget build(BuildContext context) => isEmailVerified
-      ? HomePage()
-      : Scaffold(
-          appBar: AppBar(
-            title: const Text('Verify Email'),
-          ),
-        );
+  Widget build(BuildContext context) =>
+      isEmailVerified //Se o email estiver verificado é criado a homepage, se não, é criado a tela de verificação de email
+          ? HomePage()
+          : Scaffold(
+              body: Column(
+                children: [
+                  const LogoText(
+                    texto: 'Verifique seu email',
+                  ),
+                  SizedBox(height: 24),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      "Foi enviado para o seu email, uma mensagem de confirmação. Por favor confirmar antes de prosseguir com a criação de conta.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Tcolor.secondaryText,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 42),
+                  InkWell(
+                    child: SizedBox(
+                      width: 200,
+                      height: 50,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Tcolor.primaryColor,
+                          minimumSize: Size.fromHeight(50),
+                        ),
+                        icon: Icon(
+                          Icons.email_rounded,
+                          color: Tcolor.buttonText,
+                        ),
+                        label: Text(
+                          seconds > 0 ? "${seconds}" : 'Reenviar email',
+                          style:
+                              TextStyle(fontSize: 14, color: Tcolor.buttonText),
+                        ),
+                        onPressed:
+                            canResendEmail ? sendVerificationEmail : null,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 24),
+                  TextButton(
+                    onPressed: () => FirebaseAuth.instance.signOut(),
+                    child: Text(
+                      "Cancelar Verificação",
+                      style:
+                          TextStyle(color: Tcolor.secundaryColor, fontSize: 14),
+                    ),
+                  )
+                ],
+              ),
+            );
 }

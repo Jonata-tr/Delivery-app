@@ -26,7 +26,7 @@ class _LoginViewState extends State<LoginView> {
   void singUserIn() async {
     try {
       if (_key.currentState!.validate()) {
-        showDialog(
+        showDialog( //Loading icon
             context: context,
             builder: (context) {
               return Center(
@@ -37,6 +37,7 @@ class _LoginViewState extends State<LoginView> {
               );
             });
 
+        Navigator.of(context).pop;
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           //Adquiri o email e a senha e compara no banco de dados para fazer o login do usuario caso esteja tudo certo;
           email: emailController.text.trim(),
@@ -45,22 +46,34 @@ class _LoginViewState extends State<LoginView> {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        debugPrint(e.code);
+        Navigator.of(context).pop;
+        showMessage('Email não encotrado');
       } else if (e.code == 'wrong-password') {
-        showMessage();
+        showMessage('Senha errada');
+        Navigator.of(context).pop;
       }
     }
 
     Navigator.of(context).pop;
   }
 
-  void showMessage() {
+  void showMessage(String string) {
     showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return const AlertDialog(
-            title: Text("email eerrado"),
-            content: Text("ta tudo dando errado nessa pora"),
+        builder: (context) {
+          return AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            backgroundColor: const Color.fromARGB(255, 39, 39, 39),
+            title: Center(
+              child: Text(
+                string,
+                style: TextStyle(
+                  color: Tcolor.buttonText,
+                  fontSize: 18,
+                ),
+              ),
+            ),
           );
         });
   }

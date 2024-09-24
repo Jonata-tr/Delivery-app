@@ -47,10 +47,10 @@ class _SingupScreenState extends State<SingupScreen> {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
+        Navigator.of(context).pop;
         showMessage("Ja existe uma conta com este email.");
       }
     }
-
     Navigator.of(context).pop;
   }
 
