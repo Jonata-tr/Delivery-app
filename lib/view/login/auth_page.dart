@@ -1,6 +1,7 @@
-import 'package:delivery_app/view/home/testeLogin.dart';
+import 'package:delivery_app/view/home/home_view.dart';
 import 'package:delivery_app/view/login/login_view.dart';
 import 'package:delivery_app/view/login/verify_email.dart';
+import 'package:delivery_app/view/welcome_screen/welcomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,10 +17,10 @@ class AuthPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             //Caso o usuario esteja logado, leva para a tela de inicio do app
-            return VerifyEmail();
+            return const VerifyEmail();
           } else {
             //caso ele não esteja logado, leva para a tela de apresentação -> splash-screen
-            return LoginView();
+            return const WelcomePage();
           }
         },
       ),

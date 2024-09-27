@@ -1,7 +1,7 @@
 import "package:delivery_app/components/round_button.dart";
 import "package:delivery_app/view/login/login_view.dart";
+import "package:delivery_app/view/login/verify_email.dart";
 import "package:flutter/material.dart";
-
 
 class NextScreen extends StatefulWidget {
   const NextScreen({super.key});
@@ -63,12 +63,13 @@ class _NextScreenState extends State<NextScreen> {
             ),
             SizedBox(height: media.width * 0.125),
 
-            RoundButton( //Componente da pasta Common_Widgt
+            RoundButton(
+                //Componente da pasta Common_Widgt
                 title: "NEXT",
                 type: RoundButtonType.bgPrimary,
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (media) => LoginView()));
+                      MaterialPageRoute(builder: (media) => const LoginView()));
                 })
           ]),
     );

@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 
 class LogoText extends StatelessWidget {
   final String texto;
+  final double verticalPosition;
+  final double horizontalPosition;
 
-  const LogoText({super.key, required this.texto});
+  const LogoText(
+      {super.key,
+      required this.texto,
+      this.verticalPosition = 55.0,
+      this.horizontalPosition = 120.0});
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +21,13 @@ class LogoText extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Positioned(
-          bottom: 60,
-          left: 120,
+          bottom: verticalPosition,
+          left: horizontalPosition,
           child: Transform.rotate(
-            angle: 190 / 360,
+            angle: 170 / 360,
             child: Image.asset(
               "assets/img/Pattern.png",
-              width: 400,
+              width: 380,
               fit: BoxFit.contain,
             ),
           ),

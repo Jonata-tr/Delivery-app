@@ -3,6 +3,7 @@ import 'package:delivery_app/components/button_icon.dart';
 import 'package:delivery_app/components/logo_text.dart';
 import 'package:delivery_app/view/login/res_password_view.dart';
 import 'package:delivery_app/view/login/singup_view.dart';
+import 'package:delivery_app/view/login/verify_email.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,8 @@ class _LoginViewState extends State<LoginView> {
   void singUserIn() async {
     try {
       if (_key.currentState!.validate()) {
-        showDialog( //Loading icon
+        showDialog(
+            //Loading icon
             context: context,
             builder: (context) {
               return Center(
@@ -37,24 +39,23 @@ class _LoginViewState extends State<LoginView> {
               );
             });
 
-        Navigator.of(context).pop;
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           //Adquiri o email e a senha e compara no banco de dados para fazer o login do usuario caso esteja tudo certo;
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
         );
+        Navigator.of(context, rootNavigator: true).pop();
+        
+        Navigator.push(context,
+            MaterialPageRoute(builder: (media) => const VerifyEmail()));
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        Navigator.of(context).pop;
-        showMessage('Email não encotrado');
-      } else if (e.code == 'wrong-password') {
-        showMessage('Senha errada');
-        Navigator.of(context).pop;
-      }
+      Navigator.of(context, rootNavigator: true).pop();
+
+      showMessage(e.toString());
     }
 
-    Navigator.of(context).pop;
+    // ignore: use_build_context_synchronously
   }
 
   void showMessage(String string) {

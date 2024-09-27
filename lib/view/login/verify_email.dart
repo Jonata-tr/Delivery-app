@@ -3,9 +3,13 @@ import 'dart:async';
 import 'package:delivery_app/common/color_extension.dart';
 import 'package:delivery_app/components/button_icon.dart';
 import 'package:delivery_app/components/logo_text.dart';
-import 'package:delivery_app/view/home/testeLogin.dart';
+import 'package:delivery_app/main_tabview/main_tabview.dart';
+import 'package:delivery_app/view/home/home_view.dart';
+import 'package:delivery_app/view/login/login_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class VerifyEmail extends StatefulWidget {
   const VerifyEmail({super.key});
@@ -19,7 +23,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
   bool canResendEmail = false;
   Timer? timer;
 
-  static const maxSeconds = 30;
+  static const maxSeconds = 60;
   int seconds = 0;
 
   @override
@@ -58,7 +62,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
     });
 
     if (isEmailVerified) {
-      timer?.cancel();
+      dispose();
       //Se o email ja estiver verificado, cancela a verificação do timer.
     }
   }
@@ -72,18 +76,20 @@ class _VerifyEmailState extends State<VerifyEmail> {
       //Usa o metodo para enviar o email de verificação
 
       setState(() => canResendEmail = false);
-      seconds = maxSeconds;
-      timer = Timer.periodic(Duration(seconds: 1), (_) {
+      seconds = maxSeconds; //Bota o contador em 30
+      timer = Timer.periodic(const Duration(seconds: 1), (_) {
+        //Cria um contador que vai de 30 a 0
         if (seconds > 0) {
+          //Diminui o contador ate chegar em 1
           setState(() {
-            seconds--;
+            seconds--; //Cada segundo passado do contador diminui em um a variavel seconds
           });
         } else {
+          //Se o numero for menor que 0, cancela a contagem e liberar o reenvio do email
           timer?.cancel();
+          setState(() => canResendEmail = true);
         }
       });
-      await Future.delayed(Duration(seconds: 30));
-      setState(() => canResendEmail = true);
     } catch (e) {
       showMessage(e.toString());
     }
@@ -110,19 +116,17 @@ class _VerifyEmailState extends State<VerifyEmail> {
         });
   }
 
-  
-
   @override
   Widget build(BuildContext context) =>
       isEmailVerified //Se o email estiver verificado é criado a homepage, se não, é criado a tela de verificação de email
-          ? HomePage()
+          ? const MainTabView()
           : Scaffold(
               body: Column(
                 children: [
                   const LogoText(
                     texto: 'Verifique seu email',
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
@@ -149,7 +153,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                           color: Tcolor.buttonText,
                         ),
                         label: Text(
-                          seconds > 0 ? "${seconds}" : 'Reenviar email',
+                          seconds > 0 ? "$seconds" : 'Reenviar email',
                           style:
                               TextStyle(fontSize: 14, color: Tcolor.buttonText),
                         ),
@@ -158,9 +162,15 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   TextButton(
-                    onPressed: () => FirebaseAuth.instance.signOut(),
+                    onPressed: () => {
+                      FirebaseAuth.instance.signOut(),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (media) => const LoginView()))
+                    },
                     child: Text(
                       "Cancelar Verificação",
                       style:

@@ -2,10 +2,13 @@ import 'package:delivery_app/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:delivery_app/view/on_boarding/startup_view.dart';
+import 'package:get/get.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); //Prepara todas depencias que possam ser necessarias no decorrer do codigo, para evitar erros
-  await Firebase.initializeApp( //inicia o firebase
+  WidgetsFlutterBinding
+      .ensureInitialized(); //Prepara todas depencias que possam ser necessarias no decorrer do codigo, para evitar erros
+  await Firebase.initializeApp(
+    //inicia o firebase
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: "DeliveryApp",
       theme: ThemeData(
         fontFamily: "BentonSans",

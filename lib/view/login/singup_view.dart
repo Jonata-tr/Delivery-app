@@ -95,91 +95,106 @@ class _SingupScreenState extends State<SingupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Tcolor.primaryColor,
+              size: 32.0,
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+        ),
         body: SingleChildScrollView(
             child: Column(
-      children: [
-        const LogoText(texto: "Vamos criar uma conta"),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Adicione suas informações para o cadastro",
-                style: TextStyle(
-                    color: Tcolor.secondaryText,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500),
-              ),
-              //INICIO DOS INPUTS
-
-              Form(
-                key: _key,
-                child: Column(children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  RoundTextField(
-                    validateType: validateEmail,
-                    hintText: "Email",
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  const SizedBox(height: 22),
-                  RoundTextField(
-                    validateType: validatePassword,
-                    hintText: "Senha",
-                    controller: passwordController,
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 22),
-                  RoundTextField(
-                    validateType: validatesPasswordMatch,
-                    hintText: "Confirmar a Senha",
-                    controller: confirmPassword,
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 36),
-                ]),
-              ),
-              //FIM DOS CAMPOS DE INPUT
-
-              RoundButton(title: "Cadastrar", onPressed: () => {verifyEmail()}),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const LogoText(
+              texto: "Vamos criar uma conta",
+              verticalPosition: 155.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Ja possui uma conta?",
+                    "Adicione suas informações para o cadastro",
                     style: TextStyle(
                         color: Tcolor.secondaryText,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        decoration: TextDecoration.underline),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500),
                   ),
-                  TextButton(
-                    onPressed: () => {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginView()))
-                    },
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                          color: Tcolor.primaryColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.underline),
-                    ),
+                  //INICIO DOS INPUTS
+
+                  Form(
+                    key: _key,
+                    child: Column(children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      RoundTextField(
+                        validateType: validateEmail,
+                        hintText: "Email",
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      const SizedBox(height: 22),
+                      RoundTextField(
+                        validateType: validatePassword,
+                        hintText: "Senha",
+                        controller: passwordController,
+                        obscureText: true,
+                      ),
+                      const SizedBox(height: 22),
+                      RoundTextField(
+                        validateType: validatesPasswordMatch,
+                        hintText: "Confirmar a Senha",
+                        controller: confirmPassword,
+                        obscureText: true,
+                      ),
+                      const SizedBox(height: 36),
+                    ]),
                   ),
+                  //FIM DOS CAMPOS DE INPUT
+
+                  RoundButton(
+                      title: "Cadastrar", onPressed: () => {verifyEmail()}),
+                  const SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Ja possui uma conta?",
+                        style: TextStyle(
+                            color: Tcolor.secondaryText,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.underline),
+                      ),
+                      TextButton(
+                        onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginView()))
+                        },
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                              color: Tcolor.primaryColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.underline),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
-              )
-            ],
-          ),
-        ),
-      ],
-    )));
+              ),
+            ),
+          ],
+        )));
   }
 
   //Cria uma caixa de dialogo que recebe uma 'mensagem' como parametro
