@@ -28,6 +28,10 @@ class HomeView extends StatelessWidget {
       {"image": "assets/img/food/foodImg/image1.jpg", "name": "Pizza"},
       {"image": "assets/img/food/foodImg/image2.jpg", "name": "Hamburguers"},
       {"image": "assets/img/food/foodImg/image3.jpg", "name": "Churrasco"},
+      {"image": "assets/img/food/stores/image0.jpg", "name": "Barcas"},
+      {"image": "assets/img/food/stores/image1.jpg", "name": "Fast Food"},
+      {"image": "assets/img/food/stores/image2.jpg", "name": "Artesanal"},
+      {"image": "assets/img/food/stores/image3.jpg", "name": "Calabreso"},
     ];
 
     List popStores = [
@@ -123,33 +127,47 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
               ),
-              // SizedBox(
-              //   height: 140,
-              //   child: ListView.builder(
-              //     scrollDirection: Axis.horizontal,
-              //     padding: EdgeInsets.symmetric(horizontal: 15),
-              //     itemCount: categList.length,
-              //     itemBuilder: ((context, index) {
-              //       var listObj = categList[index] as Map? ?? {};
-              //       return Container(
-              //         margin: EdgeInsets.symmetric(horizontal: 8),
-              //         child: Column(
-              //           children: [
-              //             ClipRRect(
-              //               borderRadius: BorderRadius.circular(10),
-              //               child: Image.asset(
-              //                 listObj["image"].toString(),
-              //                 width: 70,
-              //                 height: 70,
-              //                 fit: BoxFit.contain,
-              //               ),
-              //             )
-              //           ],
-              //         ),
-              //       );
-              //     }),
-              //   ),
-              // ),
+              const SizedBox(
+                height: 32,
+              ),
+              SizedBox(
+                height: 140,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  itemCount: categList.length,
+                  itemBuilder: ((context, index) {
+                    var listObj = categList[index] as Map? ?? {};
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 8),
+                      child: Column(
+                        children: [
+                          ClipRRect(
+                              borderRadius: BorderRadius.circular(18),
+                              child: Image.asset(
+                                listObj["image"].toString(),
+                                width: media.width * 0.25,
+                                height: media.width * 0.2,
+                                fit: BoxFit.cover,
+                              )),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            listObj["name"],
+                            style: TextStyle(
+                              fontFamily: 'BentoSans',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Tcolor.buttonText,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                ),
+              ),
             ],
           ),
         ),
