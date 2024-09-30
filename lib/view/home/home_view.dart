@@ -23,6 +23,48 @@ class HomeView extends StatelessWidget {
       FirebaseAuth.instance.signOut();
     }
 
+    List categList = [
+      {"image": "assets/img/food/foodImg/image0.jpg", "name": "Combos"},
+      {"image": "assets/img/food/foodImg/image1.jpg", "name": "Pizza"},
+      {"image": "assets/img/food/foodImg/image2.jpg", "name": "Hamburguers"},
+      {"image": "assets/img/food/foodImg/image3.jpg", "name": "Churrasco"},
+    ];
+
+    List popStores = [
+      {
+        "image": "assets/img/food/stores/image0.jpg",
+        "name": 'Anti Veganos',
+        "rate": '4.9',
+        "rating": '124',
+        "type": 'Churrasco',
+        "location": 'Bairro da catita',
+      },
+      {
+        "image": "assets/img/food/stores/image1.jpg",
+        "name": 'Pizzaria Delicias',
+        "rate": '4.2',
+        "rating": '124',
+        "type": 'Pizza',
+        "location": 'Bairro da catita',
+      },
+      {
+        "image": "assets/img/food/stores/image2.jpg",
+        "name": 'Hamburgueria e lanchonet',
+        "rate": '4.5',
+        "rating": '124',
+        "type": 'Hamburguer',
+        "location": 'Bairro da catita',
+      },
+      {
+        "image": "assets/img/food/stores/image0.jpg",
+        "name": 'Lanchonete tapuru',
+        "rate": '3.5',
+        "rating": '124',
+        "type": 'Combos',
+        "location": 'Bairro da catita',
+      },
+    ];
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -71,7 +113,7 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: NormalTextField(
                   hintText: "Persquisar sua comida",
                   controller: txtSearch,
@@ -80,7 +122,34 @@ class HomeView extends StatelessWidget {
                     color: Tcolor.buttonText,
                   ),
                 ),
-              )
+              ),
+              // SizedBox(
+              //   height: 140,
+              //   child: ListView.builder(
+              //     scrollDirection: Axis.horizontal,
+              //     padding: EdgeInsets.symmetric(horizontal: 15),
+              //     itemCount: categList.length,
+              //     itemBuilder: ((context, index) {
+              //       var listObj = categList[index] as Map? ?? {};
+              //       return Container(
+              //         margin: EdgeInsets.symmetric(horizontal: 8),
+              //         child: Column(
+              //           children: [
+              //             ClipRRect(
+              //               borderRadius: BorderRadius.circular(10),
+              //               child: Image.asset(
+              //                 listObj["image"].toString(),
+              //                 width: 70,
+              //                 height: 70,
+              //                 fit: BoxFit.contain,
+              //               ),
+              //             )
+              //           ],
+              //         ),
+              //       );
+              //     }),
+              //   ),
+              // ),
             ],
           ),
         ),

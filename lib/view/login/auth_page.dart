@@ -1,5 +1,3 @@
-import 'package:delivery_app/view/home/home_view.dart';
-import 'package:delivery_app/view/login/login_view.dart';
 import 'package:delivery_app/view/login/verify_email.dart';
 import 'package:delivery_app/view/welcome_screen/welcomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
