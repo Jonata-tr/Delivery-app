@@ -128,7 +128,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   ),
                   const SizedBox(height: 24),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
                       "Foi enviado para o seu email, uma mensagem de confirmação. Por favor confirmar antes de prosseguir com a criação de conta.",
                       textAlign: TextAlign.center,
@@ -146,7 +146,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       child: ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Tcolor.primaryColor,
-                          minimumSize: Size.fromHeight(50),
+                          minimumSize: const Size.fromHeight(50),
                         ),
                         icon: Icon(
                           Icons.email_rounded,

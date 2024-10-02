@@ -29,7 +29,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: txtEmail.text.trim());
       Navigator.push(
-          context, MaterialPageRoute(builder: (media) => LoginView()));
+          context, MaterialPageRoute(builder: (media) => const LoginView()));
     } on FirebaseAuthException catch (e) {
       showMessage(e.toString());
     }

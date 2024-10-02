@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Tcolor {
   static Color get primaryColor => const Color.fromARGB(255, 57, 226, 125);
-  static Color get secundaryColor => const Color.fromARGB(255, 42, 131, 78);
+  static Color get secundaryColor => const Color.fromARGB(255, 177, 243, 182);
   static Color get buttonText => const Color.fromARGB(255, 255, 255, 255);
   static Color get bgSecundary => const Color.fromARGB(0, 255, 255, 255);
   static Color get placeHolder => const Color.fromARGB(207, 255, 255, 255);

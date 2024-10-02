@@ -1,6 +1,5 @@
 import "package:delivery_app/components/round_button.dart";
 import "package:delivery_app/view/login/login_view.dart";
-import "package:delivery_app/view/login/verify_email.dart";
 import "package:flutter/material.dart";
 
 class NextScreen extends StatefulWidget {

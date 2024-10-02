@@ -27,7 +27,7 @@ class LogoText extends StatelessWidget {
             angle: 170 / 360,
             child: Image.asset(
               "assets/img/Pattern.png",
-              width: 380,
+              width: media.width * 0.89,
               fit: BoxFit.contain,
             ),
           ),

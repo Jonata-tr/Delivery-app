@@ -1,7 +1,8 @@
 import 'package:delivery_app/common/color_extension.dart';
+import 'package:delivery_app/components/round_button.dart';
 import 'package:delivery_app/view/home/home_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class MainTabView extends StatefulWidget {
   const MainTabView({super.key});
@@ -13,6 +14,10 @@ class MainTabView extends StatefulWidget {
 int _selectedIndex = 0;
 
 class _MainTabViewState extends State<MainTabView> {
+  Future<void> logoutUser() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +88,8 @@ class _MainTabViewState extends State<MainTabView> {
               color: Colors.red[500],
             ),
             Container(
-              color: Colors.green[300],
+              child: RoundButton(
+                  title: 'Sair da conta', onPressed: () => {logoutUser()}),
             ),
           ],
         ),

@@ -45,7 +45,7 @@ class _LoginViewState extends State<LoginView> {
           password: passwordController.text.trim(),
         );
         Navigator.of(context, rootNavigator: true).pop();
-        
+
         Navigator.push(context,
             MaterialPageRoute(builder: (media) => const VerifyEmail()));
       }
@@ -178,7 +178,7 @@ class _LoginViewState extends State<LoginView> {
                     "Ainda não possui cadastro?",
                     style: TextStyle(
                         color: Tcolor.secondaryText,
-                        fontSize: 18,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline),
                   ),
@@ -193,7 +193,7 @@ class _LoginViewState extends State<LoginView> {
                       "Criar conta",
                       style: TextStyle(
                           color: Tcolor.primaryColor,
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.w700,
                           decoration: TextDecoration.underline),
                     ),

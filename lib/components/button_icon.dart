@@ -15,12 +15,14 @@ class ButtonIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var media = MediaQuery.of(context).size;
+
     return InkWell(
         child: TextButton(
       onPressed: onPressed,
       child: Container(
-        width: 150,
-        height: 58,
+        width: media.width * 0.35,
+        height: 48,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: color,
@@ -40,7 +42,7 @@ class ButtonIcon extends StatelessWidget {
             ),
             Text(
               texto,
-              style: const TextStyle(color: Colors.white, fontSize: 18),
+              style: const TextStyle(color: Colors.white, fontSize: 14),
             ),
           ],
         ),

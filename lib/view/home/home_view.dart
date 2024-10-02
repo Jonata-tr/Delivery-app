@@ -1,9 +1,9 @@
 import 'package:delivery_app/common/color_extension.dart';
-import 'package:delivery_app/components/form_text_field.dart';
 import 'package:delivery_app/components/normal_text_field.dart';
+import 'package:delivery_app/components/recommend_item_row.dart';
+import 'package:delivery_app/components/viewAll_row.dart';
 import 'package:delivery_app/view/login/login_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
@@ -53,7 +53,7 @@ class HomeView extends StatelessWidget {
       },
       {
         "image": "assets/img/food/stores/image2.jpg",
-        "name": 'Hamburgueria e lanchonet',
+        "name": 'Hamburgueria',
         "rate": '4.5',
         "rating": '124',
         "type": 'Hamburguer',
@@ -64,7 +64,7 @@ class HomeView extends StatelessWidget {
         "name": 'Lanchonete tapuru',
         "rate": '3.5',
         "rating": '124',
-        "type": 'Combos',
+        "type": 'Fast Food',
         "location": 'Bairro da catita',
       },
     ];
@@ -131,15 +131,15 @@ class HomeView extends StatelessWidget {
                 height: 32,
               ),
               SizedBox(
-                height: 140,
+                height: 120,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   itemCount: categList.length,
                   itemBuilder: ((context, index) {
                     var listObj = categList[index] as Map? ?? {};
                     return Container(
-                      margin: EdgeInsets.symmetric(horizontal: 8),
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
                       child: Column(
                         children: [
                           ClipRRect(
@@ -168,6 +168,217 @@ class HomeView extends StatelessWidget {
                   }),
                 ),
               ),
+
+              //SEÇÃO DOS PRATOS POPULARES
+              const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: ViewAllTittleRow(text: "Pratos do Baralho")),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                height: 230,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: popStores.length,
+                  itemBuilder: ((context, index) {
+                    var listObj = popStores[index] as Map? ?? {};
+                    return Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Column(
+                        children: [
+                          ClipRRect(
+                              borderRadius: BorderRadius.circular(18),
+                              child: Image.asset(
+                                listObj["image"].toString(),
+                                width: media.width * .8,
+                                height: media.width * 0.4,
+                                fit: BoxFit.cover,
+                              )),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                listObj["name"],
+                                style: TextStyle(
+                                  fontFamily: 'BentoSans',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Tcolor.buttonText,
+                                ),
+                              ),
+                              Text(
+                                "  .  ",
+                                style: TextStyle(
+                                  fontFamily: 'BentoSans',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,
+                                  color: Tcolor.primaryColor,
+                                ),
+                              ),
+                              Text(
+                                listObj["type"],
+                                style: TextStyle(
+                                  fontFamily: 'BentoSans',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Tcolor.buttonText,
+                                ),
+                              ),
+                              Text(
+                                "  .  ",
+                                style: TextStyle(
+                                  fontFamily: 'BentoSans',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,
+                                  color: Tcolor.primaryColor,
+                                ),
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star_outlined,
+                                    color: Tcolor.primaryColor,
+                                    size: 20,
+                                  ),
+                                  Text(
+                                    listObj["rate"],
+                                    style: TextStyle(
+                                      fontFamily: 'BentoSans',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Tcolor.buttonText,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    );
+                  }),
+                ),
+              ),
+
+              //SEÇÃO DOS RESTAURANTES POPULARES
+              const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: ViewAllTittleRow(text: "Restaurantes picas")),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                height: 270,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: popStores.length,
+                  itemBuilder: ((context, index) {
+                    var listObj = popStores[index] as Map? ?? {};
+                    return Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Column(
+                        children: [
+                          ClipRRect(
+                              child: Image.asset(
+                            listObj["image"].toString(),
+                            width: media.width * 1,
+                            height: media.width * 0.5,
+                            fit: BoxFit.cover,
+                          )),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                listObj["name"],
+                                style: TextStyle(
+                                  fontFamily: 'BentoSans',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Tcolor.buttonText,
+                                ),
+                              ),
+                              Text(
+                                "  .  ",
+                                style: TextStyle(
+                                  fontFamily: 'BentoSans',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,
+                                  color: Tcolor.primaryColor,
+                                ),
+                              ),
+                              Text(
+                                listObj["type"],
+                                style: TextStyle(
+                                  fontFamily: 'BentoSans',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Tcolor.buttonText,
+                                ),
+                              ),
+                              Text(
+                                "  .  ",
+                                style: TextStyle(
+                                  fontFamily: 'BentoSans',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,
+                                  color: Tcolor.primaryColor,
+                                ),
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star_outlined,
+                                    color: Tcolor.primaryColor,
+                                    size: 20,
+                                  ),
+                                  Text(
+                                    listObj["rate"],
+                                    style: TextStyle(
+                                      fontFamily: 'BentoSans',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Tcolor.buttonText,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    );
+                  }),
+                ),
+              ),
+
+              //RECOMENDAÇÕES
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: ViewAllTittleRow(text: 'Recomendações'),
+              ),
+              ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  itemCount: popStores.length,
+                  itemBuilder: ((context, index) {
+                    var rObj = popStores[index] as Map? ?? {};
+                    return RecommendItemRow(
+                      rObj: rObj,
+                      onTap: () {},
+                    );
+                  }))
             ],
           ),
         ),
